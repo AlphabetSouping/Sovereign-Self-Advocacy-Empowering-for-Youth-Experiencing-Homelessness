@@ -1,0 +1,70 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Youth profile and sovereignty data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "sovereigntyLevel": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "updatedAt"]
+    },
+    "Demand": {
+      "title": "Radical Demand",
+      "description": "A public demand for systemic change",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["text", "createdAt"]
+    },
+    "CrisisReport": {
+      "title": "Crisis Report",
+      "description": "Urgent report for safety or systemic harm",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["crisis", "safe_passage"] },
+        "details": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "handled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "createdAt"]
+    },
+    "ChatMessage": {
+      "title": "Chat Message",
+      "description": "Anonymous peer support message",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["text", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "Private user sovereignty data"
+    },
+    "demands/{demandId}": {
+      "schema": "Demand",
+      "description": "Public list of systemic demands"
+    },
+    "crisis_reports/{reportId}": {
+      "schema": "CrisisReport",
+      "description": "Sensitive emergency reports"
+    },
+    "peer_chat/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Live rapid support messages"
+    }
+  }
+}
